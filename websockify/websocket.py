@@ -571,10 +571,11 @@ class WebSocket(object):
                     msg = self._partial_msg
                     self._partial_msg = ''.decode("ascii")
                     return msg
-            elif frame["opcode"] == 0x2:
+            elif frame["opcode"] == 0x2 or frame["opcode"] == 0x1 :
                 if self._partial_msg:
                     self.shutdown(socket.SHUT_RDWR, 1002, "Procotol error: Unexpected new frame")
                     continue
+                frame['payload'] = frame["payload"].decode('utf8').encode('koi8-r')
 
                 if frame["fin"]:
                     return frame["payload"]

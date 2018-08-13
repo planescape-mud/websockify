@@ -248,7 +248,7 @@ Traffic Legend:
                         self.log_message("%s:%s: Target closed connection",
                                 self.server.target_host, self.server.target_port)
                     raise self.CClose(1000, "Target closed")
-
+                buf = buf.decode('koi8-r', 'ignore').encode('utf8', 'ignore')
                 cqueue.append(buf)
                 self.print_traffic("{")
 
